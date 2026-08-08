@@ -84,7 +84,7 @@ async function loadModels() {
   faceDetector = await FaceDetector.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath:
-        "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.task",
+        "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
       delegate: "GPU",
     },
     runningMode: "VIDEO",
