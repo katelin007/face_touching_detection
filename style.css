@@ -1,0 +1,103 @@
+/* ------------------------------------------------------------------ *
+ * Face-Touch Alarm — styles
+ * Kept deliberately minimal. The one bit of personality is the
+ * status "readout" that sits over the video like a monitor label.
+ * ------------------------------------------------------------------ */
+
+:root {
+  color-scheme: light dark;
+  --clear: #34c759;   /* green  = hand is away  */
+  --alert: #ff3b30;   /* red    = hand on face  */
+  --ink:   #1c1c1e;
+  --muted: #8a8a8e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2rem 1.25rem;
+  max-width: 620px;
+  margin-inline: auto;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+h1 { font-size: 1.5rem; margin: 0 0 .35rem; letter-spacing: -0.01em; }
+.lead { color: var(--muted); margin: 0 0 1.25rem; }
+.note { color: var(--muted); font-size: .85rem; margin-top: 1rem; }
+
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: .65rem 1.4rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+}
+button:disabled { opacity: .45; cursor: default; }
+button[hidden] { display: none; }
+
+.controls { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+button.secondary {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+
+#status {
+  color: var(--muted);
+  font-size: .9rem;
+  min-height: 1.3em;
+  margin: .6rem 0 0;
+}
+
+/* ---- the live view ------------------------------------------------ */
+#stage {
+  position: relative;
+  margin-top: 1.25rem;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 4 / 3;
+}
+
+#video,
+#overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);   /* mirror, like a selfie camera */
+}
+
+/* the monitor-style status label */
+.readout {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: .3rem .7rem;
+  border-radius: 6px;
+  font: 600 .8rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+  color: #fff;
+  background: var(--clear);
+}
+.readout.clear    { background: var(--clear); }
+.readout.touching { background: var(--alert); }
+
+/* ---- when #stage is moved into the floating (PiP) window ---------- */
+/* The PiP window's <body> gets the .pip class, and #stage is its only  */
+/* child, so we just make it fill the whole floating window.            */
+body.pip { padding: 0; background: #000; }
+body.pip #stage {
+  margin: 0;
+  border-radius: 0;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+}

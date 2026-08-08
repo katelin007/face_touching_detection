@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Face-Touch Alarm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="main">
+    <h1>Face-Touch Alarm</h1>
+    <p class="lead">
+      Watches your webcam and buzzes whenever your hand touches your face.
+      It opens a small floating window so it keeps working while you use other tabs.
+    </p>
+
+    <div class="controls">
+      <button id="primaryBtn">Start watching</button>
+      <button id="reopenBtn" class="secondary" hidden>Reopen floating window</button>
+    </div>
+    <p id="status" role="status">Idle.</p>
+
+    <!-- The whole live view lives inside #stage.                     -->
+    <!-- This element gets MOVED into the floating window on start,   -->
+    <!-- and moved back here when that window is closed.              -->
+    <div id="stage">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div id="readout" class="readout clear">CLEAR</div>
+    </div>
+
+    <p class="note">
+      Works in Chrome or Edge. Allow the camera when asked, then keep the little
+      floating window visible in a corner of your screen — that's what keeps the
+      detection running.
+    </p>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
