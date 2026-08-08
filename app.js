@@ -210,7 +210,7 @@ async function openFloatingWindow() {
   if (!("documentPictureInPicture" in window)) {
     statusEl.textContent =
       "This browser has no Picture-in-Picture support, so detection will pause " +
-      "when this tab is in the background. Use Chrome or Edge for background alerts.";
+      "when you leave this tab. Use Chrome or Edge on a PC for background alerts.";
     return;
   }
 
