@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
 /* ------------------------------------------------------------------ *
  * Face-Touch Alarm — styles
  * Kept deliberately minimal. The one bit of personality is the
@@ -5,11 +6,12 @@
  * ------------------------------------------------------------------ */
 
 :root {
-  color-scheme: light dark;
-  --clear: #34c759;   /* green  = hand is away  */
-  --alert: #ff3b30;   /* red    = hand on face  */
-  --ink:   #1c1c1e;
-  --muted: #8a8a8e;
+  color-scheme: light;
+  --pink:  #f6e3e7;   /* soft pink  = hand is away */
+  --mist:  #f3f6f6;   /* light grey = page background */
+  --alert: #e14d63;   /* rosy red   = hand on face */
+  --ink:   #1a1a1a;   /* near-black text + buttons */
+  --muted: #6f6f74;
 }
 
 * { box-sizing: border-box; }
@@ -19,7 +21,8 @@ body {
   padding: 2rem 1.25rem;
   max-width: 620px;
   margin-inline: auto;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Work Sans", system-ui, -apple-system, sans-serif;
+  background: var(--mist);
   color: var(--ink);
   line-height: 1.5;
 }
@@ -80,15 +83,16 @@ button.secondary {
   position: absolute;
   top: 12px;
   left: 12px;
-  padding: .3rem .7rem;
-  border-radius: 6px;
-  font: 600 .8rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-  letter-spacing: .08em;
-  color: #fff;
-  background: var(--clear);
+  padding: .35rem .8rem;
+  border-radius: 999px;
+  font: 600 .8rem/1 "Work Sans", system-ui, sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--pink);
 }
-.readout.clear    { background: var(--clear); }
-.readout.touching { background: var(--alert); }
+.readout.clear    { color: var(--ink); background: var(--pink); }
+.readout.touching { color: #fff;       background: var(--alert); }
 
 /* ---- when #stage is moved into the floating (PiP) window ---------- */
 /* The PiP window's <body> gets the .pip class, and #stage is its only  */
