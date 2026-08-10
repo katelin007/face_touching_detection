@@ -222,9 +222,9 @@ async function openFloatingWindow() {
     .forEach((node) => pipWindow.document.head.appendChild(node.cloneNode(true)));
   pipWindow.document.body.classList.add("pip");
 
-  // Move the live view into the floating window and keep it playing.
+  // Move the live view into the floating window (it plays once the camera starts).
   pipWindow.document.body.append(stage);
-  await video.play();
+  if (video.srcObject) await video.play();
 
   pipWindow.addEventListener("pagehide", onFloatingClosed);
 }
@@ -256,7 +256,12 @@ function closeFloatingWindow() {
 async function startWatching() {
   primaryBtn.disabled = true;
   try {
+    // Open the floating window FIRST, while your click still counts as
+    // "user activation." Loading the models/camera before this would use
+    // up that activation and the browser would refuse the window.
     if (!audioCtx) initAudio();
+    await openFloatingWindow();
+
     if (!handLandmarker) {
       statusEl.textContent = "Loading models…";
       await loadModels();
@@ -265,12 +270,16 @@ async function startWatching() {
     await startCamera();
     lastVideoTime = -1;
 
-    await openFloatingWindow();
-
     running = true;
     updateButtons();
     if (pipWindow) {
       statusEl.textContent = "Watching. Keep the floating window visible in a corner.";
+    } else if (!("documentPictureInPicture" in window)) {
+      statusEl.textContent =
+        "Watching in this tab. No floating-window support here, so detection " +
+        "pauses if you switch away.";
+    } else {
+      statusEl.textContent = "Watching in this tab.";
     }
     loop();
   } catch (err) {
